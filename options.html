@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEK-UP Auto Login - Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 400px;
+      width: 100%;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      font-size: 28px;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      color: #333;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      margin-bottom: 20px;
+    }
+
+    .toggle-label {
+      color: #333;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .toggle {
+      position: relative;
+      width: 50px;
+      height: 26px;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.3s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button.clear {
+      background: #f44336;
+    }
+
+    button.clear:hover {
+      box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+    }
+
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 15px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .status.show {
+      opacity: 1;
+    }
+
+    .status.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border: 1px solid #a5d6a7;
+    }
+
+    .status.error {
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #ef9a9a;
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      border: 1px solid #90caf9;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #1565c0;
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .password-toggle {
+      position: relative;
+    }
+
+    .password-toggle .eye-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #666;
+      font-size: 18px;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">🔐</div>
+      <h1>TEK-UP Auto Login</h1>
+      <p class="subtitle">Configure your WiFi credentials</p>
+    </div>
+
+    <form id="settingsForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          placeholder="Enter your TEK-UP username"
+          autocomplete="username"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-toggle">
+          <input 
+            type="password" 
+            id="password" 
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
+          <span class="eye-icon" id="togglePassword">👁️</span>
+        </div>
+      </div>
+
+      <div class="toggle-container">
+        <span class="toggle-label">Enable Auto-Login</span>
+        <label class="toggle">
+          <input type="checkbox" id="enabled" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <button type="submit" id="save">Save Credentials</button>
+      <button type="button" class="clear" id="clear">Clear All Data</button>
+
+      <div id="status" class="status"></div>
+    </form>
+
+    <div class="info-box">
+      <strong>🛡️ Security Note:</strong>
+      Your credentials are stored securely in Chrome's sync storage and are never shared with third parties.
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "TEK-UP Auto Login",
+  "version": "1.1.0",
+  "description": "Automatically logs into the TEK-UP captive portal with saved credentials.",
+  "author": "Your Name",
+  
+  "permissions": [
+    "storage"
+  ],
+  
+  "host_permissions": [
+    "*://cp_login.tekup/*",
+    "*://*/cp_login.tekup/*"
+  ],
+  
+  "content_scripts": [
+    {
+      "matches": [
+        "*://cp_login.tekup/*",
+        "*://*/cp_login.tekup/*"
+      ],
+      "js": ["autologin.js"],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  
+  "options_page": "options.html",
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  
+  "background": {
+    "service_worker": "background.js"
+  }
+}

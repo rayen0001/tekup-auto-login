@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEK-UP Auto Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 300px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .version {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .status-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .status-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .status-label {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .status-value {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .status-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-left: 5px;
+    }
+
+    .status-indicator.active {
+      background: #4caf50;
+      box-shadow: 0 0 8px #4caf50;
+    }
+
+    .status-indicator.inactive {
+      background: #f44336;
+    }
+
+    .button {
+      width: 100%;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .button:active {
+      transform: translateY(0);
+    }
+
+    .button.primary {
+      background: white;
+      color: #667eea;
+      font-weight: 600;
+    }
+
+    .button.primary:hover {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .toggle-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .toggle-text {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      transition: 0.3s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #4caf50;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      opacity: 0.7;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">🔐</div>
+      <h1>TEK-UP Auto Login</h1>
+      <p class="version">v1.1.0</p>
+    </div>
+
+    <div class="status-card">
+      <div class="status-row">
+        <span class="status-label">Status</span>
+        <span class="status-value" id="status">
+          <span id="statusText">Loading...</span>
+          <span class="status-indicator" id="statusIndicator"></span>
+        </span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">Username</span>
+        <span class="status-value" id="username">Not set</span>
+      </div>
+    </div>
+
+    <div class="toggle-btn">
+      <span class="toggle-text">Auto-Login</span>
+      <label class="toggle">
+        <input type="checkbox" id="toggleEnabled">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <button class="button primary" id="openSettings">
+      ⚙️ Settings
+    </button>
+
+    <button class="button" id="testLogin">
+      🔄 Test Login
+    </button>
+
+    <div class="footer">
+      Made with ❤️ for TEK-UP
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
